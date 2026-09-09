@@ -39,15 +39,15 @@ export const chip = (
     },
     size: {
       small: {
-        base: "h-6 px-1.5 gap-[2px] text-xs",
+        base: "h-6 px-1.5 py-[2px] gap-[2px] text-xs",
         deleteIcon: "text-md",
       },
       medium: {
-        base: "h-7 px-2.5 gap-[3px] text-sm",
+        base: "h-7 px-2.5 py-1 gap-[3px] text-sm",
         deleteIcon: "text-lg",
       },
       large: {
-        base: "h-8 px-3 gap-1 text-normal",
+        base: "h-8 px-3 py-1.5 gap-1 text-normal",
         deleteIcon: "text-xl",
       },
     },
