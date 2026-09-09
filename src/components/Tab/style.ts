@@ -7,7 +7,7 @@ export const tab = (
   theme: Theme = defaultTheme,
 ) => tv({
   base: [
-    "py-2 px-4 min-w-15 min-h-8 items-center justify-center gap-y-0 gap-x-1 text-auto",
+    "py-2 px-4 min-w-15 min-h-8 items-center justify-center gap-y-0 gap-x-1",
     theme.rounded.none,
   ],
   variants: {
