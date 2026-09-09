@@ -12,7 +12,7 @@ export const chip = (
 ) => tv({
   slots: {
     base: [
-      "inline-flex items-center gap-1",
+      "inline-flex items-center gap-1 max-w-full",
       "font-normal align-middle",
       theme.typography.colors.textPrimary,
       theme.rounded.full,
