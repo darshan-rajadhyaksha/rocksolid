@@ -66,6 +66,7 @@ export default defineConfig({
     rollupOptions: {
       input,
       treeshake: false,
+      preserveEntrySignatures: "strict",
       external: [
         "solid-js",
         "solid-js/web",
