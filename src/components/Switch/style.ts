@@ -15,7 +15,8 @@ export const switchTv = (
       theme.focusWithin,
     ],
     handle: [
-      "absolute translate-y-[2px] translate-x-[2px]",
+      "absolute translate-y-[2px]",
+      "ltr:translate-x-[2px] rtl:-translate-x-[2px]",
       "bg-white shadow-sm",
       theme.rounded.full,
     ],
@@ -80,21 +81,21 @@ export const switchTv = (
       checked: true,
       size: "small",
       class: {
-        handle: "translate-x-[14px]",
+        handle: "ltr:translate-x-[14px] rtl:-translate-x-[14px]",
       },
     },
     {
       checked: true,
       size: "medium",
       class: {
-        handle: "translate-x-[18px]",
+        handle: "ltr:translate-x-[18px] rtl:-translate-x-[18px]",
       },
     },
     {
       checked: true,
       size: "large",
       class: {
-        handle: "translate-x-[22px]",
+        handle: "ltr:translate-x-[22px] rtl:-translate-x-[22px]",
       },
     },
     {

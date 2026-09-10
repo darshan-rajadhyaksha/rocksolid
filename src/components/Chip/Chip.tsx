@@ -138,6 +138,7 @@ const Chip = (
         {...local.slotProps?.label}
         as="span"
         variant="inherit"
+        truncate
         class={cn(
           classes().label(),
           local.slotProps?.label?.class,

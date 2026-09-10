@@ -54,10 +54,10 @@ const AccordionDetails = (
       if (!isExpanded() && transitionCompleted) {
         ref.style.height = `${ref?.scrollHeight ?? 0}px`;
       }
-      requestAnimationFrame(() => {
-        transitionCompleted = false;
-        ref.style.height = `${height}px`;
-      });
+      /* force sync layout to prevent styles batching */
+      void ref.offsetHeight;
+      transitionCompleted = false;
+      ref.style.height = `${height}px`;
     }
   };
 
