@@ -1,0 +1,15 @@
+import fs from "node:fs";
+
+const pkg = JSON.parse(fs.readFileSync("package.json", "utf8"));
+const lock = JSON.parse(fs.readFileSync("package-lock.json", "utf8"));
+
+lock.version = pkg.version;
+
+if (lock.packages?.[""]) {
+  lock.packages[""].version = pkg.version;
+}
+
+fs.writeFileSync(
+  "package-lock.json",
+  JSON.stringify(lock, null, 2) + "\n"
+);
