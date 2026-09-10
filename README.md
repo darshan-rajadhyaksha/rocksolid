@@ -4,6 +4,8 @@ RockSolid is a modern UI component library built with **SolidJS** and **Tailwind
 
 It provides accessible, customizable, and reusable components for building modern web applications.
 
+[Read the Documentation](https://rocksolidjs.com/)
+
 ## Features
 
 - Built with SolidJS
@@ -20,14 +22,13 @@ Before installing RockSolid, make sure your project has the following dependenci
 
 - SolidJS
 - Tailwind CSS
-- Tailwind Variants
 
 If you are starting a new SolidJS project, set up SolidJS and Tailwind CSS first.
 
 Install the required dependencies:
 
 ```bash
-npm install solid-js tailwindcss tailwind-variants
+npm install solid-js tailwindcss
 ```
 
 ## Installation
@@ -45,6 +46,8 @@ Import the RockSolid stylesheet into your application's global CSS file:
 ```css
 @import "tailwindcss";
 @import "rocksolidjs/index.css";
+/* Provide the relative path of the rocksolidjs package */
+@source "../node_modules/rocksolidjs";
 ```
 
 Make sure Tailwind CSS is configured in your project.
@@ -83,7 +86,8 @@ RockSolid is written in TypeScript and provides type definitions for components,
 
 ## Documentation
 
-For detailed information about components, theming, accessibility, and customization, see the RockSolid documentation.
+For detailed information about components, theming, accessibility, and customization, see the [RockSolid documentation.](https://rocksolidjs.com/)
+
 
 ## License
 
