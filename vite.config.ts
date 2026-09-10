@@ -70,6 +70,7 @@ export default defineConfig({
       external: [
         "solid-js",
         "solid-js/web",
+        "tailwind-variants",
       ],
       output: {
         format: "es",
