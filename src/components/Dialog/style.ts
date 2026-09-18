@@ -17,7 +17,7 @@ export const dialog = (
       true: "w-full h-full",
       false: [ 
         "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
-        "[max-width:calc(100%_-_2rem)] [max-height:calc(100%_-_2rem)]",
+        "max-w-[calc(100vw_-_2rem)] max-h-[calc(100vh_-_2rem)]",
         theme.rounded.small,
       ],
     },

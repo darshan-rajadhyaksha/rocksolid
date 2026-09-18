@@ -1,5 +1,6 @@
 import {
   type JSXElement,
+  type ValidComponent,
   createMemo,
   splitProps,
 } from "solid-js";
@@ -12,13 +13,13 @@ import {
 import cn from "@/components/utils/cn";
 import cardTitleStyles from "./style";
 
-export type CardTitleProps = {
+export type CardTitleProps<T extends ValidComponent = "h2"> = {
   class?: string;
   children?: JSXElement;
-} & TypographyProps;
+} & TypographyProps<T>;
 
-const CardTitle = (
-  props: CardTitleProps,
+const CardTitle = <T extends ValidComponent = "h2">(
+  props: CardTitleProps<T>,
 ) => {
 
   const [local, rest] = splitProps(props, [

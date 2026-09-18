@@ -19,8 +19,8 @@ export const input = (
     input: [
       "w-full h-full border-0 outline-0",
     ],
-    prefix: "leading-1 shrink-0 ps-1.5 pe-1",
-    suffix: "leading-1 shrink-0 ps-1 pe-1.5",
+    prefix: "leading-[1] shrink-0 ps-1.5 pe-1",
+    suffix: "leading-[1] shrink-0 ps-1 pe-1.5",
   },
   variants: {
     color: asVariants(theme.colors, () => ""),

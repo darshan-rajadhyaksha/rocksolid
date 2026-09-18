@@ -20,7 +20,7 @@ export const useTabsContext = (
   const context = useContext(Tabs_Context);
   if (!context) {
     throw new Error(`
-      ${componentName} must be used inside TabsContext
+      ${componentName} must be used inside TabsContext component.
     `.trim());
   }
   return context;

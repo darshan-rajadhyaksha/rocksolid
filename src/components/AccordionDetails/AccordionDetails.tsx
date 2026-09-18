@@ -19,7 +19,10 @@ export type AccordionDetailsProps = {
   children?: JSXElement;
   class?: string;
   onTransitionEnd?: (event: TransitionEvent) => void;
-} & ComponentProps<"div">;
+  ref?: (element: HTMLDivElement) => void;
+} & Omit<
+  ComponentProps<"div">, "ref"
+>;
 
 const AccordionDetails = (
   props: AccordionDetailsProps,
@@ -29,20 +32,25 @@ const AccordionDetails = (
     "class",
     "children",
     "onTransitionEnd",
+    "ref",
   ]);
+
+  let firstCycle = true;
 
   const themeContextValue = useThemeContext();
 
   const accordionContextValue = useAccordionContext();
 
-  let transitionCompleted: boolean = false;
-
   let ref!: HTMLDivElement;
 
   const isExpanded = () => accordionContextValue.isExpanded();
 
+  const isExpandedOnMount = isExpanded();
+
+  let transitionCompleted: boolean = isExpandedOnMount;
+
   const applyAccordionDetailsHeight = () => {
-    if (accordionContextValue.disableTransition()) {
+    if (accordionContextValue.disableTransition() || firstCycle) {
       const height = isExpanded() ? "auto" : "0px";
       if (ref) {
         ref.style.height = height;
@@ -63,6 +71,7 @@ const AccordionDetails = (
 
   const classes = createMemo(() => {
     const state = {
+      expanded: isExpandedOnMount,
       disableTransition: accordionContextValue.disableTransition(),
     };
     if (themeContextValue) {
@@ -73,6 +82,7 @@ const AccordionDetails = (
 
   onMount(() => {
     applyAccordionDetailsHeight();
+    firstCycle = false;
   });
 
   createRenderEffect(() => {
@@ -81,6 +91,7 @@ const AccordionDetails = (
 
   const handleTransitionEnd = (event: TransitionEvent) => {
     if (
+      event.target === ref &&
       event.propertyName === "height"
     ) {
       if (isExpanded()) {
@@ -112,7 +123,10 @@ const AccordionDetails = (
         local.class,
       )}
       onTransitionEnd={handleTransitionEnd}
-      ref={ref}
+      ref={(element) => {
+        ref = element;
+        local.ref?.(element);
+      }}
     >
       <div
         class={classes().content()}

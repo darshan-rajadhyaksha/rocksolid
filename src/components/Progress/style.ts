@@ -11,11 +11,11 @@ export const progress = (
     base: [
       "block w-full overflow-hidden",
       "bg-neutral-300 dark:bg-neutral-700",
-      theme.rounded.small,
+      theme.rounded.full,
     ],
     fill: [
       "block h-full rounded-[inherit]",
-      "transition-width duration-150",
+      "transition-[width] duration-150",
     ],
   },
   variants: {

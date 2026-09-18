@@ -4,6 +4,12 @@ import {
   createSignal,
   splitProps,
 } from "solid-js";
+import {
+  type Prettify,
+} from "@/components/types/Prettify";
+import {
+  type WithExtendedComponentProps,
+} from "@/components/types/ExtendedComponentProps";
 import IconButton, {
   type IconButtonProps
 } from "@/components/IconButton";
@@ -18,9 +24,9 @@ import RadioUnchecked from "@/components/icons/RadioUnchecked";
 import cn from "@/components/utils/cn";
 import radioDefaultStyles from "./style";
 
-type RadioSlotProps = {
-  base?: ComponentProps<"span">;
-};
+type RadioSlotProps = Prettify<{
+  base?: Prettify<ComponentProps<"span"> & WithExtendedComponentProps>;
+}>;
 
 export type RadioProps = {
   class?: string;

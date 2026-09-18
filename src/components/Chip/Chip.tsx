@@ -7,6 +7,12 @@ import {
 } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import {
+  type Prettify,
+} from "@/components/types/Prettify";
+import {
+  type WithExtendedComponentProps
+} from "@/components/types/ExtendedComponentProps";
+import {
   type VariantProps,
 } from "tailwind-variants";
 import Typography, {
@@ -24,10 +30,10 @@ import chipDefaultStyles from "./style";
 
 type ChipVariants = VariantProps<typeof chipDefaultStyles>;
 
-type ChipSlotProps = {
-  deleteIcon?: ComponentProps<"span">,
-  label?: TypographyProps,
-};
+type ChipSlotProps = Prettify<{
+  deleteIcon?: Prettify<ComponentProps<"span"> & WithExtendedComponentProps>,
+  label?: Prettify<TypographyProps<"span"> & WithExtendedComponentProps>,
+}>;
 
 export type ChipProps = {
   avatar?: JSXElement;
@@ -127,7 +133,7 @@ const Chip = (
       component={isClickable() ? "button" : "div"}
       aria-disabled={local.disabled}
       onClick={!local.disabled ? local.onClick : undefined}
-      tabIndex={(isClickable() && !local.disabled) ? 0 : undefined}
+      tabIndex={(isClickable() && !local.disabled) ? 0 : -1}
       class={cn(
         classes().base(),
         local.class,

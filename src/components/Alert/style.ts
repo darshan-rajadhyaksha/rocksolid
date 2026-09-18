@@ -18,6 +18,11 @@ export const alert = (
     ],
     content: "grow-1 min-w-0",
     icon: "text-lg shrink-0",
+    closeButton: [
+      "hover:bg-black/15 hover:dark:bg-white/15",
+      "active:bg-black/25 active:dark:bg-white/25",
+      "text-[inherit] dark:text-[inherit]",
+    ],
   },
   variants: {
     color: asVariants(theme.colors, () => ({})),

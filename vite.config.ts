@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from "vitest/config";
 import dts from "vite-plugin-dts";
-import solid from 'vite-plugin-solid';
+import solid from "vite-plugin-solid";
 import tailwindcss from "@tailwindcss/vite";
 import { globSync } from "glob";
 import {
@@ -19,6 +19,9 @@ const input = Object.fromEntries(
   globSync("**/*.{ts,tsx}", {
     cwd: componentsDir,
     absolute: true,
+    ignore: [
+      "**/*.test.{ts,tsx}",
+    ]
   }).map((file) => {
     const relativePath = relative(
       componentsDir,
@@ -48,7 +51,7 @@ export default defineConfig({
     solid(),
     dts({
       tsconfigPath: "./tsconfig.build.json",
-      include: ["src"],
+      include: ["src/components"],
       insertTypesEntry: true,
       exclude: [
         "**/*.test.ts",
@@ -59,6 +62,20 @@ export default defineConfig({
   ],
   resolve: {
     tsconfigPaths: true,
+  },
+  test: {
+    environment: "jsdom",
+    setupFiles: "./src/test/setup.ts",
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "html"],
+      include: ["src/**/*.{ts,tsx}"],
+      exclude: [
+        "src/**/*.test.{ts,tsx}",
+        "src/**/*.spec.{ts,tsx}",
+        "src/**/*.d.ts",
+      ],
+    },
   },
   build: {
     outDir: "dist",
@@ -71,6 +88,8 @@ export default defineConfig({
         "solid-js",
         "solid-js/web",
         "tailwind-variants",
+        "valibot",
+        "ts-deepmerge",
       ],
       output: {
         format: "es",

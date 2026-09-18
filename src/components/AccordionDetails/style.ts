@@ -20,7 +20,15 @@ export const accordionDetails = (
     disableTransition: {
       true: {},
       false: {
-        base: "transition-height duration-300",
+        base: "transition-[height] duration-300",
+      },
+    },
+    expanded: {
+      true: {
+        base: "h-auto",
+      },
+      false: {
+        base: "h-0",
       },
     },
   },

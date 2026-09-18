@@ -39,8 +39,8 @@ export const switchTv = (
     disableTransition: {
       true: {},
       false: {
-        base: "transition-background duration-300",
-        handle: "transition-translate duration-300",
+        base: "transition-[background] duration-300",
+        handle: "transition-[translate] duration-300",
       },
     },
     size: {

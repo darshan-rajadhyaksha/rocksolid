@@ -10,7 +10,7 @@ export const badge = (
   slots: {
     base: "relative",
     badge: [
-      "absolute grid place-items-center leading-0",
+      "absolute grid place-items-center leading-0 select-none",
       "text-xs font-semibold",
       theme.rounded.full,
     ],

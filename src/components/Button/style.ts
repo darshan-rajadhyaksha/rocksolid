@@ -14,7 +14,8 @@ export const button = (
 ) => tv({
   slots: {
     base: [
-      "inline-flex justify-center items-center gap-2 font-normal align-middle",
+      "inline-flex justify-center items-center gap-2",
+      "font-normal align-middle",
       theme.rounded.small,
       theme.focus,
     ],
@@ -31,7 +32,7 @@ export const button = (
     },
     disabled: {
       true: {
-        base: "user-event-none",
+        base: "pointer-events-none",
       },
       false: {
         base: "cursor-pointer",
@@ -67,6 +68,7 @@ export const button = (
             class: {
               base: [
                 themeConfig.background,
+                themeConfig.border,
                 themeConfig.hover,
                 themeConfig.active,
                 themeConfig.text,

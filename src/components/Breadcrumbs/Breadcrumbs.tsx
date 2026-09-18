@@ -10,16 +10,22 @@ import {
 } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import {
+  type Prettify,
+} from "@/components/types/Prettify";
+import  {
+  type WithExtendedComponentProps
+} from "@/components/types/ExtendedComponentProps";
+import {
   useThemeContext,
 } from "@/components/ThemeProvider/";
 import cn from "@/components/utils/cn";
 import breadcrumbsDefaultStyle from "./style";
 
-type BreadcrumbsSlotProps = {
-  ol?: ComponentProps<"ol">,
-  li?: ComponentProps<"li">,
-  seperator?: ComponentProps<"li">;
-};
+type BreadcrumbsSlotProps = Prettify<{
+  ol?: Prettify<ComponentProps<"ol"> & WithExtendedComponentProps>,
+  li?: Prettify<ComponentProps<"li"> & WithExtendedComponentProps>,
+  seperator?: Prettify<ComponentProps<"li"> & WithExtendedComponentProps>;
+}>;
 
 export type BreadcrumbsProps<T extends ValidComponent = "nav"> = {
   as?: T;
@@ -83,7 +89,7 @@ const Breadcrumbs = <T extends ValidComponent = "nav">(
               </li>
               {(index() !== (items.length - 1)) ? (
                 <li
-                  aria-hidden
+                  aria-hidden={true}
                   {...local.slotProps?.seperator}
                 >
                   {local.seperator}

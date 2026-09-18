@@ -31,7 +31,7 @@ export const chip = (
     },
     disabled: {
       true: {
-        base: "user-event-none",
+        base: "pointer-events-none",
       },
       false: {
         deleteIcon: "cursor-pointer",
@@ -47,14 +47,12 @@ export const chip = (
         deleteIcon: "text-lg",
       },
       large: {
-        base: "h-8 px-3 py-1.5 gap-1 text-normal",
+        base: "h-8 px-3 py-1.5 gap-1 text-md",
         deleteIcon: "text-xl",
       },
     },
     clickable: {
-      true: {
-        base: [theme.focus],
-      },
+      true: {},
       false: {},
     },
     hasDeleteIcon: {
@@ -158,6 +156,13 @@ export const chip = (
       class: {
         base: "ps-1",
         label: "ps-[3px]",
+      },
+    },
+    {
+      clickable: true,
+      disabled: false,
+      class: {
+        base: [theme.focus],
       },
     },
   ],

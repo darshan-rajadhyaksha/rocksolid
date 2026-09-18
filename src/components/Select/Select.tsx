@@ -1,6 +1,7 @@
 import {
   type ComponentProps,
   For,
+  createEffect,
   createMemo,
   mergeProps,
   splitProps,
@@ -9,6 +10,12 @@ import {
   type VariantProps,
 } from "tailwind-variants";
 import {
+  type Prettify,
+} from "@/components/types/Prettify";
+import {
+  type WithExtendedComponentProps
+} from "@/components/types/ExtendedComponentProps";
+import {
   useThemeContext,
 } from "@/components/ThemeProvider/";
 import type {
@@ -16,8 +23,13 @@ import type {
 } from "@/components/styles/theme/colors";
 import cn from "@/components/utils/cn";
 import selectDefaultStyles from "./style";
+import theme from "@/components/styles/theme";
 
 type SelectVariants = VariantProps<typeof selectDefaultStyles>;
+
+type SelectSlotProps = Prettify<{
+  option?: Prettify<ComponentProps<"option"> & WithExtendedComponentProps>;
+}>;
 
 export type SelectOption = {
   label: string;
@@ -30,13 +42,16 @@ export type SelectProps = {
   color?: keyof ThemeColors;
   disabled?: boolean;
   fullWidth?: boolean;
-  onChange?: (event: InputEvent) => void;
+  onChange?: (event: Event) => void;
   options?: SelectOption[];
+  ref?: (elem: HTMLSelectElement) => void;
   size?: SelectVariants["size"];
+  slotProps?: SelectSlotProps;
+  value?: string;
   variant?: SelectVariants["variant"];
 } & Omit<
   ComponentProps<"select">,
-  "multiple" | "onChange"
+  "multiple" | "onChange" | "ref"
 >;
 
 const Select = (
@@ -56,13 +71,18 @@ const Select = (
     "disabled",
     "fullWidth",
     "options",
+    "ref",
     "size",
+    "slotProps",
+    "value",
     "variant",
     // Skip props
     "children",
     // @ts-ignore
     "multiple",
   ]);
+
+  let selectRef!:HTMLSelectElement;
 
   const themeContextValue = useThemeContext();
 
@@ -84,21 +104,35 @@ const Select = (
     local.options ?? []
   ));
 
+  createEffect(() => {
+    selectRef.value =  local.value ?? "";
+  });
+
   return (
     <select
       {...rest}
+      ref={(element) => {
+        selectRef = element;
+        local.ref?.(element);
+      }}
       multiple={false}
       disabled={local.disabled}
       class={cn(
-        classes(),
+        classes().base(),
         local.class,
       )}
     >
       <For each={selectOptions()}>
         {(option) => (
           <option
+            {...local.slotProps?.option}
             value={option.value}
             disabled={option.disabled}
+            class={cn(
+              classes().option(),
+              option.disabled ? theme.disabled.text : "",
+              local.slotProps?.option?.class,
+            )}
           >
             {option.label}
           </option>

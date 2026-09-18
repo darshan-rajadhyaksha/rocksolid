@@ -13,9 +13,5 @@ export const TableContext = (
 );
 
 export const useTableContext = () => {
-  const context = useContext(TableContext);
-  if (!context) {
-    throw new Error("useTableContext must be used inside TableContextProvider");
-  }
-  return context;
+  return useContext(TableContext);
 };

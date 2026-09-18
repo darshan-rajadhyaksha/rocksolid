@@ -1,6 +1,5 @@
 import {
   type ComponentProps,
-  type ParentProps,
   createMemo,
   mergeProps,
   splitProps,
@@ -21,7 +20,7 @@ export type SkeletonProps = {
 } & ComponentProps<"span">;
 
 const Skeleton = (
-  props: ParentProps<SkeletonProps>,
+  props: SkeletonProps,
 ) => {
 
   const merged = mergeProps({
@@ -29,9 +28,10 @@ const Skeleton = (
   }, props);
 
   const [local, rest] = splitProps(merged, [
-    "children",
     "class",
     "variant",
+    /** Skip props */
+    "children",
   ]);
 
   const themeContextValue = useThemeContext();

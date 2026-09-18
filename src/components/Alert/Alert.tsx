@@ -7,6 +7,12 @@ import {
   splitProps,
 } from "solid-js";
 import { Dynamic } from "solid-js/web";
+import {
+  type Prettify,
+} from "@/components/types/Prettify";
+import  {
+  type WithExtendedComponentProps
+} from "@/components/types/ExtendedComponentProps";
 import { type VariantProps } from "tailwind-variants";
 import Typography,{
   type TypographyProps,
@@ -31,12 +37,12 @@ import alertDefaultStyles from "./style";
 
 type AlertVariants = VariantProps<typeof alertDefaultStyles>;
 
-type AlertSlotProps = {
-  icon?: TypographyProps;
-  content?: TypographyProps;
-  action?: ComponentProps<"div">;
-  closeButton?: IconButtonProps; 
-};
+type AlertSlotProps = Prettify<{
+  icon?: Prettify<TypographyProps & WithExtendedComponentProps>;
+  content?: Prettify<TypographyProps & WithExtendedComponentProps>;
+  action?: Prettify<ComponentProps<"div"> & WithExtendedComponentProps>;
+  closeButton?: Prettify<Omit<IconButtonProps, "as"> & WithExtendedComponentProps>; 
+}>;
 
 export type AlertProps<T extends ValidComponent = "div"> = {
   action?: JSXElement;
@@ -74,6 +80,9 @@ const Alert = <T extends ValidComponent = "div">(
   const themeContextValue = useThemeContext();
 
   const icon = createMemo(() => {
+    if (local.icon === null) {
+      return;
+    }
     if (local.icon) {
       return local.icon;
     }
@@ -102,6 +111,10 @@ const Alert = <T extends ValidComponent = "div">(
     return alertDefaultStyles(state);
   });
 
+  const slotProps = createMemo(() => (
+    local.slotProps as (AlertSlotProps | undefined)
+  ));
+
   return (
     <Dynamic
       role="alert"
@@ -115,10 +128,10 @@ const Alert = <T extends ValidComponent = "div">(
       {icon() ? (
         <Typography
           as="span"
-          {...local.slotProps?.icon}
+          {...slotProps()?.icon}
           class={cn(
             classes().icon(),
-            local.slotProps?.icon?.class,
+            slotProps()?.icon?.class,
           )}
         >
           {icon()}
@@ -127,17 +140,17 @@ const Alert = <T extends ValidComponent = "div">(
       <Typography 
         as="div"
         variant="inherit"
-        {...local.slotProps?.content}
+        {...slotProps()?.content}
         class={cn(
           classes().content(),
-          local.slotProps?.content?.class,
+          slotProps()?.content?.class,
         )}
       >
         {local.children}
       </Typography>
       {local.action ? (
         <div
-          {...local.slotProps?.action}
+          {...slotProps()?.action}
         >
           {local.action}
         </div>
@@ -146,10 +159,13 @@ const Alert = <T extends ValidComponent = "div">(
         <IconButton
           aria-label="Close"
           color={local.color}
-          variant="text"
           size="small"
-          {...local.slotProps?.closeButton}
+          {...slotProps()?.closeButton}
           onClick={local.onClose}
+          class={cn(
+            classes().closeButton(),
+            slotProps()?.closeButton?.class,
+          )}
         >
           <CrossIcon />
         </IconButton>
