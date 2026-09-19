@@ -1,5 +1,6 @@
 import {
   type JSXElement,
+  type ValidComponent,
   createMemo,
   splitProps,
 } from "solid-js";
@@ -12,13 +13,13 @@ import {
 import cn from "@/components/utils/cn";
 import dialogTitleStyles from "./style";
 
-export type DialogTitleProps = {
+export type DialogTitleProps<T extends ValidComponent = "h3"> = {
   class?: string;
   children?: JSXElement;
-} & TypographyProps;
+} & TypographyProps<T>;
 
-const DialogTitle = (
-  props: DialogTitleProps,
+const DialogTitle = <T extends ValidComponent = "h3">(
+  props: DialogTitleProps<T>,
 ) => {
 
   const [local, rest] = splitProps(props, [

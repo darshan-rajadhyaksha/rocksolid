@@ -4,10 +4,17 @@ import {
   createMemo,
   mergeProps,
   splitProps,
+  Show,
 } from "solid-js";
 import {
   type VariantProps,
 } from "tailwind-variants";
+import {
+  type Prettify,
+} from "@/components/types/Prettify";
+import {
+  type WithExtendedComponentProps
+} from "@/components/types/ExtendedComponentProps";
 import {
   useThemeContext,
 } from "@/components/ThemeProvider/";
@@ -19,11 +26,11 @@ import inputDefaultStyles from "./style";
 
 type InputVariants = VariantProps<typeof inputDefaultStyles>;
 
-type InputSlotProps = {
-  base?: ComponentProps<"div">;
-  prefix?: ComponentProps<"span">;
-  suffix?: ComponentProps<"span">;
-};
+type InputSlotProps = Prettify<{
+  base?: Prettify<ComponentProps<"div"> & WithExtendedComponentProps>;
+  prefix?: Prettify<ComponentProps<"span"> & WithExtendedComponentProps>;
+  suffix?: Prettify<ComponentProps<"span"> & WithExtendedComponentProps>;
+}>;
 
 type InputTypes =
   | "number"
@@ -112,7 +119,7 @@ const Input = (
         local.slotProps?.base?.class,
       )}
     >
-      {local.prefix ? (
+      <Show when={local.prefix}>
         <span
           {...local.slotProps?.prefix}
           class={cn(
@@ -122,7 +129,7 @@ const Input = (
         >
           {local.prefix}
         </span>
-      ) : null}
+      </Show>
       <input
         {...rest}
         type={local.type}
@@ -133,7 +140,7 @@ const Input = (
           local.class,
         )}
       />
-      {local.suffix ? (
+      <Show when={local.suffix}>
         <span
           {...local.slotProps?.suffix}
           class={cn(
@@ -143,7 +150,7 @@ const Input = (
         >
           {local.suffix}
         </span>
-      ) : null}
+      </Show>
     </div>
   );
 };

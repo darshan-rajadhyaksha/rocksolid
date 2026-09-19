@@ -9,6 +9,12 @@ import {
   type VariantProps,
 } from "tailwind-variants";
 import {
+  type Prettify,
+} from "@/components/types/Prettify";
+import {
+  type WithExtendedComponentProps,
+} from "@/components/types/ExtendedComponentProps"; 
+import {
   useThemeContext,
 } from "@/components/ThemeProvider/";
 import type {
@@ -19,10 +25,10 @@ import switchDefaultStyles from "./style";
 
 type SwitchVariants = VariantProps<typeof switchDefaultStyles>;
 
-type SwitchSlotProps = {
-  base?: ComponentProps<"span">;
-  handle?: ComponentProps<"span">;
-};
+type SwitchSlotProps = Prettify<{
+  base?: Prettify<ComponentProps<"span"> & WithExtendedComponentProps>;
+  handle?: Prettify<ComponentProps<"span"> & WithExtendedComponentProps>;
+}>;
 
 export type SwitchProps = {
   checked?: boolean;
@@ -65,7 +71,6 @@ const Switch = (
     "children",
     // @ts-ignore
     "type",
-    "size",
   ]);
 
   const themeContextValue = useThemeContext();

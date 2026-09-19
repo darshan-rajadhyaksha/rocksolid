@@ -1,7 +1,8 @@
 import {
+  type ValidComponent,
   createMemo,
   mergeProps,
-  splitProps,
+  splitProps, 
 } from "solid-js";
 import Button, {
   type ButtonProps,
@@ -12,15 +13,15 @@ import {
 import cn from "@/components/utils/cn";
 import iconButtonDefaultStyles from "./style";
 
-export type IconButtonProps = {
+export type IconButtonProps<T extends ValidComponent = "button"> = {
   class?: string;
 } & Omit<
-  ButtonProps, 
-  "startIcon" | "endIcon" | "variant" | "slotProps"
+  ButtonProps<T>, 
+  "fullWidth" | "startIcon" | "endIcon" | "variant" | "slotProps"
 >;
 
-const IconButton = (
-  props: IconButtonProps,
+const IconButton = <T extends ValidComponent = "button">(
+  props: IconButtonProps<T>,
 ) => {
 
   const mergedProps = mergeProps({
@@ -32,6 +33,7 @@ const IconButton = (
     "class",
     "size",
     /* Skip props */
+    // @ts-ignore
     "fullWidth",
     // @ts-ignore
     "startIcon",

@@ -10,6 +10,12 @@ import {
 } from "solid-js";
 import { Portal } from "solid-js/web";
 import {
+  type Prettify,
+} from "@/components/types/Prettify";
+import {
+  type WithExtendedComponentProps
+} from "@/components/types/ExtendedComponentProps";
+import {
   type VariantProps,
 } from "tailwind-variants";
 import cn from "@/components/utils/cn";
@@ -23,9 +29,9 @@ import dialogDefaultStyles from "./style";
 
 type DialogVariants = VariantProps<typeof dialogDefaultStyles>;
 
-type DialogSlotProps = {
-  backdrop?: BackdropProps;
-};
+type DialogSlotProps = Prettify<{
+  backdrop?: Prettify<BackdropProps & WithExtendedComponentProps>;
+}>;
 
 export type DialogCloseReason = "escape" | "backdrop";
 
@@ -35,11 +41,12 @@ export type DialogProps = {
   fullscreen?: DialogVariants["fullscreen"];
   onClose?: (event: Event, reason: DialogCloseReason) => void;
   open?: boolean;
+  ref?: (element: HTMLDivElement) => void;
   role?: "alertdialog" | "dialog";
   slotProps?: DialogSlotProps;
 } & Omit<
   ComponentProps<"div">,
-  "onClose"
+  "onClose" | "ref"
 >;
 
 const FOCUSABLE_SELECTOR = [
@@ -65,6 +72,7 @@ const Dialog = (
     "fullscreen",
     "open",
     "onClose",
+    "ref",
     "slotProps",
   ]);
 
@@ -220,7 +228,10 @@ const Dialog = (
               classes(),
               local.class,
             )}
-            ref={dialog}
+            ref={(element) => {
+              dialog = element;
+              local.ref?.(element);
+            }}
           >
             {local.children}
           </div>

@@ -9,6 +9,12 @@ import {
   type VariantProps,
 } from "tailwind-variants";
 import {
+  type Prettify,
+} from "@/components/types/Prettify";
+import {
+  type WithExtendedComponentProps,
+} from "@/components/types/ExtendedComponentProps";
+import {
   useThemeContext,
 } from "@/components/ThemeProvider/";
 import type {
@@ -19,11 +25,11 @@ import progressDefaultStyles from "./style";
 
 type ProgressVariants = VariantProps<typeof progressDefaultStyles>;
 
-type ProgressSlotProps = {
-  fill?: {
+type ProgressSlotProps = Prettify<{
+  fill?: Prettify<{
     style?: JSX.CSSProperties;
-  } & Omit<ComponentProps<"span">, "style">;
-};
+  } & Omit<ComponentProps<"span">, "style"> & WithExtendedComponentProps>;
+}>;
 
 export type ProgressProps = {
   class?: string;
@@ -33,10 +39,7 @@ export type ProgressProps = {
   value?: number;
   size?: ProgressVariants["size"];
   slotProps?: ProgressSlotProps;
-} & Omit<
-  ComponentProps<"div">,
-  "style"
->;
+} & ComponentProps<"div">;
 
 const Progress = (
   props: ProgressProps,
@@ -46,6 +49,7 @@ const Progress = (
     color: "default" as const,
     max: 100 as const,
     min: 0 as const,
+    value: 0 as const,
     size: "medium" as const,
   }, props);
 

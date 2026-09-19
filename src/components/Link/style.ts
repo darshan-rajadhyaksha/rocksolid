@@ -13,7 +13,7 @@ export const link = (
   ],
   variants: {
     underline: {
-      none: "",
+      none: "no-underline",
       hover: "hover:underline",
       always: "underline",
     },

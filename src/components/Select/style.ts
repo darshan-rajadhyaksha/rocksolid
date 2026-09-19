@@ -10,30 +10,46 @@ const variants = ["filled", "outlined", "ghost"] as const;
 export const select = (
   theme: Theme = defaultTheme,
 ) => tv({
-  base: [
-    "border-0 outline-0",
-    theme.rounded.small,
-    theme.focus,
-  ],
+  slots: {
+    base: [
+      "border-0 outline-0",
+      theme.rounded.small,
+      theme.focus,
+    ],
+    option: [
+      "bg-white dark:bg-neutral-950",
+      "text-neutral-50 dark:text-white",
+    ],
+  },
   variants: {
-    color: asVariants(theme.colors, () => ""),
+    color: asVariants(theme.colors, () => ({})),
     disabled: {
-      true: "",
-      false: "",
+      true: {},
+      false: {},
     },
     variant: {
-      filled: "",
-      ghost: "",
-      outlined: "border border-1",
+      filled: {},
+      ghost: {},
+      outlined: {
+        base: "border border-1"
+      },
     },
     size: {
-      small: "py-1 px-1.5 h-6 text-sm",
-      medium: "py-1 px-1.5 h-8 text-sm",
-      large: "py-1.5 px-2 h-10 text-md",
+      small: {
+        base: "py-1 px-1.5 h-6 text-sm",
+      },
+      medium: {
+        base: "py-1 px-1.5 h-8 text-sm",
+      },
+      large: {
+        base: "py-1.5 px-2 h-10 text-md",
+      },
     },
     fullWidth: {
-      true: "w-full",
-      false: "",
+      true: {
+        base: "w-full",
+      },
+      false: {},
     }
   },
   compoundVariants: [
@@ -45,21 +61,25 @@ export const select = (
             color,
             variant,
             disabled: false,
-            class: [
-              themeConfig.background,
-              themeConfig.border,
-              themeConfig.text,
-            ],
+            class: {
+              base: [
+                themeConfig.background,
+                themeConfig.border,
+                themeConfig.text,
+              ],
+            },
           },
           {
             color,
             variant,
             disabled: true,
-            class: [
-              variant === "filled" ? theme.disabled.background : "",
-              variant === "outlined" ? theme.disabled.border : "",
-              theme.disabled.text,
-            ],
+            class: {
+              base: [
+                variant === "filled" ? theme.disabled.background : "",
+                variant === "outlined" ? theme.disabled.border : "",
+                theme.disabled.text,
+              ],
+            },
           },
         ];
       })

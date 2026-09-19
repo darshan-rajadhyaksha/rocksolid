@@ -59,7 +59,7 @@ const TableCell = (
   const classes = createMemo(() => {
     const state = {
       align: local.align,
-      dense: tableContextValue.dense(),
+      dense: !!tableContextValue?.dense?.(),
     };
     if (themeContextValue) {
       return themeContextValue.componentsTV.tableCell(state);

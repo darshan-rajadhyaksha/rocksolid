@@ -9,7 +9,7 @@ export const avatar = (
 ) => tv({
   slots: {
     base: [
-      "size-8 grid place-items-center shrink-0",
+      "size-8 grid place-items-center shrink-0 select-none",
       theme.typography.variants.body2,
     ],
     img: "w-full h-full rounded-[inherit]",

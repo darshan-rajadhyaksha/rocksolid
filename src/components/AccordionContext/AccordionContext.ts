@@ -18,7 +18,7 @@ export const useAccordionContext = () => {
   const context = useContext(AccordionContext);
   if (!context) {
     throw new Error(`
-      Use AccordionSummary and AccordionDetails inside Accordion component.
+      AccordionSummary and AccordionDetails must be used inside an Accordion component.
     `.trim());
   }
   return context;

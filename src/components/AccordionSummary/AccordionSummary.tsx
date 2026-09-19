@@ -6,6 +6,12 @@ import {
   splitProps,
 } from "solid-js";
 import {
+  type Prettify,
+} from "@/components/types/Prettify";
+import  {
+  type WithExtendedComponentProps,
+} from "@/components/types/ExtendedComponentProps";
+import {
   useThemeContext,
 } from "@/components/ThemeProvider/";
 import Button, {
@@ -19,10 +25,10 @@ import AngleDown from "@/components/icons/AngleDown";
 import cn from "@/components/utils/cn";
 import accordionSummaryDefaultStyles from "./style";
 
-type AccordionSummarySlotProps = {
-  button?: ButtonProps;
-  icon?: NonNullable<ButtonProps["slotProps"]>["endIcon"];
-};
+type AccordionSummarySlotProps = Prettify<{
+  button?: Prettify<ButtonProps<"button"> & WithExtendedComponentProps>;
+  icon?: NonNullable<ButtonProps<"button">["slotProps"]>["endIcon"];
+}>;
 
 export type AccordionSummaryProps = {
   children?: JSXElement; 
@@ -37,12 +43,11 @@ const AccordionSummary = (
 ) => {
 
   const mergedProps = mergeProps({
-    collapsedIcon: <AngleUp class="text-lg" />,
-    expandedIcon: <AngleDown class="text-lg" />,
+    collapsedIcon: <AngleUp class={cn("text-lg")} />,
+    expandedIcon: <AngleDown class={cn("text-lg")} />,
   }, props);
 
   const [local, rest] = splitProps(mergedProps, [
-    "class",
     "children",
     "collapsedIcon",
     "expandedIcon",

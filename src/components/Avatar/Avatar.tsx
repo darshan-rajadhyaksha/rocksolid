@@ -8,6 +8,12 @@ import {
 } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import {
+  type Prettify,
+} from "@/components/types/Prettify";
+import  {
+  type WithExtendedComponentProps
+} from "@/components/types/ExtendedComponentProps";
+import {
   type VariantProps,
 } from "tailwind-variants";
 import {
@@ -34,9 +40,9 @@ const getAvatarLetters = (
 
 type AvatarVariants = VariantProps<typeof avatarDefaultStyles>;
 
-type AvatarSlotProps = {
-  img?: ComponentProps<"img">;
-};
+type AvatarSlotProps = Prettify<{
+  img?: Prettify<ComponentProps<"img"> & WithExtendedComponentProps>;
+}>;
 
 export type AvatarProps<T extends ValidComponent = "div"> = {
   alt?: string;
@@ -77,9 +83,9 @@ const Avatar = <T extends ValidComponent = "div">(
     local.src && typeof local.src === "string"
   );
 
-  const content = () => (
-    getAvatarLetters(local.alt || "") || local.children
-  );
+  const avatarLetters = createMemo(() => (
+    getAvatarLetters(local.alt || local.children || "")
+  ));
 
   const handleImageError = (event: ErrorEvent) => {
     setIsShowImage(false);
@@ -111,14 +117,14 @@ const Avatar = <T extends ValidComponent = "div">(
         <img
           {...local.slotProps?.img}
           src={local.src}
-          alt={local.alt}
+          alt={avatarLetters()}
           onError={handleImageError}
           class={cn(
             classes().img(),
             local.slotProps?.img?.class,
           )}
         />
-      ) : content()}
+      ) : avatarLetters()}
     </Dynamic>
   );
 };

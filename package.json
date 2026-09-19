@@ -32,6 +32,9 @@
     "dist"
   ],
   "scripts": {
+    "test": "vitest run",
+    "test:dev": "vitest",
+    "test:coverage": "vitest run --coverage",
     "build": "npm run typecheck && vite build",
     "typecheck": "tsc -p tsconfig.build.json --noEmit",
     "version": "changeset version && node scripts/sync-lock-version.js",
@@ -40,13 +43,19 @@
   "devDependencies": {
     "@changesets/changelog-github": "^1.0.1",
     "@changesets/cli": "^3.0.2",
+    "@solidjs/testing-library": "^0.8.10",
     "@tailwindcss/vite": "^4.3.3",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/user-event": "^14.6.7",
     "@types/node": "^24.13.3",
+    "@vitest/coverage-v8": "^5.0.0",
     "glob": "^13.0.6",
+    "jsdom": "^30.0.1",
     "typescript": "~6.0.2",
     "vite": "^8.2.0",
     "vite-plugin-dts": "^5.0.3",
-    "vite-plugin-solid": "^2.11.13"
+    "vite-plugin-solid": "^2.11.13",
+    "vitest": "^5.0.0"
   },
   "dependencies": {
     "tailwind-variants": "^3.1.0",

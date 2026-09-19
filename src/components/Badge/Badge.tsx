@@ -1,11 +1,16 @@
 import {
   type ComponentProps,
   type JSXElement,
-  type ParentProps,
   createMemo,
   mergeProps,
   splitProps,
 } from "solid-js";
+import {
+  type Prettify,
+} from "@/components/types/Prettify";
+import  {
+  type WithExtendedComponentProps
+} from "@/components/types/ExtendedComponentProps";
 import {
   type VariantProps,
 } from "tailwind-variants";
@@ -20,9 +25,9 @@ import badgeDefaultStyles from "./style";
 
 type BadgeVariants = VariantProps<typeof badgeDefaultStyles>;
 
-type BadgeSlotProps = {
-  badge?: ComponentProps<"span">;
-};
+type BadgeSlotProps = Prettify<{
+  badge?: Prettify<ComponentProps<"span"> & WithExtendedComponentProps>;
+}>;
 
 export type BadgeProps = {
   badgeContent?: JSXElement;
@@ -37,7 +42,7 @@ export type BadgeProps = {
 } & ComponentProps<"span">;
 
 const Badge = (
-  props: ParentProps<BadgeProps>,
+  props: BadgeProps,
 ) => {
 
   const merged = mergeProps({

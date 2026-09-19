@@ -4,6 +4,12 @@ import {
   createSignal,
   splitProps,
 } from "solid-js";
+import {
+  type Prettify,
+} from "@/components/types/Prettify";
+import {
+  type WithExtendedComponentProps
+} from "@/components/types/ExtendedComponentProps";
 import IconButton, {
   type IconButtonProps,
 } from "@/components/IconButton";
@@ -15,9 +21,9 @@ import CheckboxChecked from "@/components/icons/CheckboxChecked";
 import CheckboxUnchecked from "@/components/icons/CheckboxUnchecked";
 import checkboxDefaultStyles from "./style";
 
-type CheckboxSlotProps = {
-  base?: ComponentProps<"span">;
-};
+type CheckboxSlotProps = Prettify<{
+  base?: Prettify<ComponentProps<"span"> & WithExtendedComponentProps>;
+}>;
 
 export type CheckboxProps = {
   checked?: boolean;

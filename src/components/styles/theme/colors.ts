@@ -42,7 +42,7 @@ const colors: ThemeColors = {
     outlined: {
       background: "bg-transparent",
       text: "text-neutral-800 dark:text-neutral-200",
-      border: "border-neutral-800 dark:border-neutral-200",
+      border: "border-neutral-400 dark:border-neutral-500",
       hover: "hover:bg-neutral-100 dark:hover:bg-neutral-800/80",
       active: "active:bg-neutral-200/80 dark:active:bg-neutral-700/80",
     },

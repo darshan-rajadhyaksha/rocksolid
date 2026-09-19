@@ -19,7 +19,7 @@ import spinnerDefaultStyles from "./style";
 
 type SpinnerVariants = VariantProps<typeof spinnerDefaultStyles>;
 
-type SpinnerProps = {
+export type SpinnerProps = {
   class?: string;
   color?: keyof ThemeColors;
   label?: string;
@@ -93,7 +93,7 @@ export const Spinner = (
         />
       </svg>
       <span
-        class="sr-only"
+        class={cn("sr-only")}
         id={labelId}
       >
         {local.label ?? "Loading"}

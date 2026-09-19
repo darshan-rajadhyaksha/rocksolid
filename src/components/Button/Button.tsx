@@ -5,8 +5,15 @@ import {
   createMemo,
   mergeProps,
   splitProps,
+  Show,
 } from "solid-js";
 import { Dynamic } from "solid-js/web";
+import {
+  type Prettify,
+} from "@/components/types/Prettify";
+import {
+  type WithExtendedComponentProps
+} from "@/components/types/ExtendedComponentProps";
 import {
   type VariantProps,
 } from "tailwind-variants";
@@ -21,12 +28,12 @@ import buttonDefaultStyles from "./style";
 
 type ButtonVariants = VariantProps<typeof buttonDefaultStyles>;
 
-type ButtonSlotProps = {
-  startIcon?: ComponentProps<"span">;
-  endIcon?: ComponentProps<"span">;
-};
+type ButtonSlotProps = Prettify<{
+  startIcon?: Prettify<ComponentProps<"span"> & WithExtendedComponentProps>;
+  endIcon?: Prettify<ComponentProps<"span"> & WithExtendedComponentProps>;
+}>;
 
-export type ButtonProps<T extends ValidComponent = "button" | "span"> = {
+export type ButtonProps<T extends ValidComponent = "button"> = {
   as?: T; // Internal API
   color?: keyof ThemeColors;
   disabled?: ButtonVariants["disabled"];
@@ -41,7 +48,7 @@ export type ButtonProps<T extends ValidComponent = "button" | "span"> = {
 } & ComponentProps<T>;
 
 
-const Button = <T extends ValidComponent = "button" | "span">(
+const Button = <T extends ValidComponent = "button">(
   props: ButtonProps<T>,
 ) => {
 
@@ -92,7 +99,7 @@ const Button = <T extends ValidComponent = "button" | "span">(
       )}
       disabled={local.disabled}
     >
-      {local.startIcon ? (
+      <Show when={local.startIcon}>
         <span
           {...local.slotProps?.startIcon}
           class={cn(
@@ -102,9 +109,9 @@ const Button = <T extends ValidComponent = "button" | "span">(
         >
           {local.startIcon}
         </span>
-      ) : null}
+      </Show>
       {local.children}
-      {local.endIcon ? (
+      <Show when={local.endIcon}>
         <span
           {...local.slotProps?.endIcon}
           class={cn(
@@ -114,7 +121,7 @@ const Button = <T extends ValidComponent = "button" | "span">(
         >
           {local.endIcon}
         </span>
-      ) : null}
+      </Show>
     </Dynamic>
   );
 };

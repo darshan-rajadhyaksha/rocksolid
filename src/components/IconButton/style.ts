@@ -8,7 +8,7 @@ export const iconButton = (
 ) => tv({
   base: [
     "px-0 py-0 min-h-[initial]",
-    "flex justify-center items-center shrink-0",
+    "inline-flex justify-center items-center shrink-0",
     theme.rounded.full,
   ],
   variants: {
