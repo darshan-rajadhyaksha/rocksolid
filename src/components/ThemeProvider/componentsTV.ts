@@ -7,6 +7,7 @@ import { backdrop } from "@/components/Backdrop/style";
 import { badge } from "@/components/Badge/style";
 import { breadcrumbs } from "@/components/Breadcrumbs/style";
 import { button } from "@/components/Button/style";
+import { buttonGroup } from "@/components/ButtonGroup/style";
 import { card } from "@/components/Card/style";
 import { cardHeader } from "@/components/CardHeader/style";
 import { cardTitle } from "@/components/CardTitle/style";
@@ -56,6 +57,8 @@ const ComponentsTV =  ({
   breadcrumbs,
   // Button
   button,
+  // ButtonGroup
+  buttonGroup,
   // Card
   card,
   cardHeader,

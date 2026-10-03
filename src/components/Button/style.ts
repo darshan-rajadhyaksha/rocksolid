@@ -16,7 +16,6 @@ export const button = (
     base: [
       "inline-flex justify-center items-center gap-2",
       "font-normal align-middle",
-      theme.rounded.small,
       theme.focus,
     ],
     startIcon: "leading-[1] shrink-0",
@@ -55,6 +54,14 @@ export const button = (
       },
       false: "",
     },
+    isChildOfButtonGroup: {
+      true: {
+        base: [theme.rounded.none],
+      },
+      false: {
+        base: [theme.rounded.small],
+      },
+    }
   },
   compoundVariants: [
     ...(typedKeys(theme.colors).flatMap(color => (
