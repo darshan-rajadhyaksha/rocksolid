@@ -23,6 +23,9 @@ import {
 import type {
   ThemeColors
 } from "@/components/styles/theme/colors";
+import {
+  useButtonGroupContext,
+} from "@/components/ButtonGroup/ButtonGroupContext";
 import cn from "@/components/utils/cn";
 import buttonDefaultStyles from "./style";
 
@@ -75,13 +78,35 @@ const Button = <T extends ValidComponent = "button">(
 
   const themeContextValue = useThemeContext();
 
+  const buttonGroupContextValue = useButtonGroupContext();
+
+  const getButtonPropValue = (
+    key: "color" | "disabled" | "fullWidth" | "size" | "variant"
+  ) => {
+    if (typeof props[key] !== "undefined") {
+      return props[key];
+    }
+    if (buttonGroupContextValue) {
+      const value = buttonGroupContextValue[key]();
+      if (typeof value !== "undefined") {
+        return value;
+      }
+    }
+    return local[key];
+  };
+
+  const isDisabled = createMemo(() => (
+    getButtonPropValue("disabled")
+  ));
+
   const classes = createMemo(() => {
     const state = {
-      color: local.color,
-      disabled: local.disabled,
-      fullWidth: local.fullWidth,
-      size: local.size,
-      variant: local.variant,
+      color: getButtonPropValue("color"),
+      disabled: isDisabled(),
+      fullWidth: getButtonPropValue("fullWidth"),
+      size: getButtonPropValue("size"),
+      variant: getButtonPropValue("variant"),
+      isChildOfButtonGroup: !!buttonGroupContextValue,
     };
     if (themeContextValue) {
       return themeContextValue.componentsTV.button(state);
@@ -97,7 +122,7 @@ const Button = <T extends ValidComponent = "button">(
         classes().base(),
         local.class,
       )}
-      disabled={local.disabled}
+      disabled={isDisabled()}
     >
       <Show when={local.startIcon}>
         <span

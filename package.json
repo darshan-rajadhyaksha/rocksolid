@@ -104,6 +104,10 @@
       "import": "./dist/Button/Button.js",
       "types": "./dist/Button/Button.d.ts"
     },
+    "./ButtonGroup": {
+      "import": "./dist/ButtonGroup/ButtonGroup.js",
+      "types": "./dist/ButtonGroup/ButtonGroup.d.ts"
+    },
     "./Card": {
       "import": "./dist/Card/Card.js",
       "types": "./dist/Card/Card.d.ts"

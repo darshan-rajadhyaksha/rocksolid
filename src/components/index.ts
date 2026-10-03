@@ -30,6 +30,10 @@ export * from "./Breadcrumbs/Breadcrumbs";
 export { default as Button } from "./Button/Button";
 export * from "./Button/Button";
 
+/** ButtonGroup */
+export { default as ButtonGroup } from "./ButtonGroup/ButtonGroup";
+export * from "./ButtonGroup/ButtonGroup";
+
 /** Card */
 export { default as Card } from "./Card/Card";
 export * from "./Card/Card";
