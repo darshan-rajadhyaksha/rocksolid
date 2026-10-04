@@ -1,5 +1,13 @@
 # rocksolidjs
 
+## 0.1.4
+
+### Patch Changes
+
+- [#13](https://github.com/darshan-rajadhyaksha/rocksolid/pull/13) [`e4be940`](https://github.com/darshan-rajadhyaksha/rocksolid/commit/e4be9401207a24e6bc25dd2f6a1e9daaf19538ed) Thanks [@darshan-rajadhyaksha](https://github.com/darshan-rajadhyaksha)! - - Added the new `ButtonGroup` component.
+  - Added `checkedIcon` and `uncheckedIcon` props to `Checkbox` and `Radio`.
+  - Fixed `Select` option text color in light mode.
+
 ## 0.1.3
 
 ### Patch Changes
