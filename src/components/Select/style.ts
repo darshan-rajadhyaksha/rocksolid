@@ -18,7 +18,7 @@ export const select = (
     ],
     option: [
       "bg-white dark:bg-neutral-950",
-      "text-neutral-50 dark:text-white",
+      "text-neutral-900 dark:text-white",
     ],
   },
   variants: {

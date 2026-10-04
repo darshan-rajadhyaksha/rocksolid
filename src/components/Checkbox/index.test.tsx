@@ -128,6 +128,24 @@ describe("Checkbox component", () => {
     });
   });
 
+  /** checkedIcon & uncheckedIcon */
+  it("should display custom checked and unchecked icons", async () => {
+    const mockProps = {
+      checkedIcon: <span data-testId="custom-checked-icon"></span>,
+      uncheckedIcon: <span data-testId="custom-unchecked-icon"></span>
+    };
+    renderCheckboxComponent(mockProps);
+    const checkboxElement = screen.getByRole("checkbox");
+    expect(checkboxElement).toBeVisible();
+    const customUnchekcedIcon = screen.getByTestId("custom-unchecked-icon");
+    expect(customUnchekcedIcon).toBeVisible();
+    expect(screen.queryByTestId("custom-checked-icon")).toBeNull();
+    await userEvent.click(checkboxElement);
+    const customChekcedIcon = screen.getByTestId("custom-checked-icon");
+    expect(customChekcedIcon).toBeVisible();
+    expect(screen.queryByTestId("custom-unchecked-icon")).toBeNull();    
+  });
+
   /** disabled prop */
   it("should disable the checkbox", () => {
     const mockProps = {

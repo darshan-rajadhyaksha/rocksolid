@@ -1,7 +1,9 @@
 import {
   type ComponentProps,
+  type JSXElement,
   createMemo,
   createSignal,
+  mergeProps,
   splitProps,
 } from "solid-js";
 import {
@@ -27,6 +29,7 @@ type CheckboxSlotProps = Prettify<{
 
 export type CheckboxProps = {
   checked?: boolean;
+  checkedIcon?: JSXElement;
   class?: string;
   color?: IconButtonProps["color"];
   defaultChecked?: boolean;
@@ -35,14 +38,21 @@ export type CheckboxProps = {
   onChange?: (event: Event, checked: boolean) => void;
   size?: IconButtonProps["size"]; 
   slotProps?: CheckboxSlotProps;
+  uncheckedIcon?: JSXElement;
 } & Omit<ComponentProps<"input">, "onChange">;
 
 const Checkbox = (
   props: CheckboxProps,
 ) => {
 
-  const [local, rest] = splitProps(props, [
+  const mergedProps = mergeProps({
+    checkedIcon: <CheckboxChecked />,
+    uncheckedIcon: <CheckboxUnchecked />,
+  }, props);
+
+  const [local, rest] = splitProps(mergedProps, [
     "checked",
+    "checkedIcon",
     "class",
     "color",
     "defaultChecked",
@@ -51,6 +61,7 @@ const Checkbox = (
     "onChange",
     "size",
     "slotProps",
+    "uncheckedIcon",
     // Skip props
     "children",
   ]);
@@ -99,9 +110,9 @@ const Checkbox = (
       disabled={local.disabled}
     >
       {isChecked() ? (
-        <CheckboxChecked />
+        local.checkedIcon
       ) : (
-        <CheckboxUnchecked />
+        local.uncheckedIcon
       )}
       <input
         {...rest}
