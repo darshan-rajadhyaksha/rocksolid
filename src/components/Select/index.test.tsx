@@ -66,7 +66,7 @@ describe("Select component", () => {
       expect(optionElement).toBeVisible();
       expect(optionElement).toHaveClass(
         "bg-white dark:bg-neutral-950",
-        "text-neutral-50 dark:text-white",
+        "text-neutral-900 dark:text-white",
       );
     });
   });
@@ -192,7 +192,7 @@ describe("Select component", () => {
         expect(optionElement).toBeEnabled();
         expect(optionElement).toHaveClass(
           "bg-white dark:bg-neutral-950",
-          "text-neutral-50 dark:text-white",
+          "text-neutral-900 dark:text-white",
         );
       }
     });

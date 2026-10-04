@@ -1,7 +1,9 @@
 import {
   type ComponentProps,
+  type JSXElement,
   createMemo,
   createSignal,
+  mergeProps,
   splitProps,
 } from "solid-js";
 import {
@@ -31,6 +33,7 @@ type RadioSlotProps = Prettify<{
 export type RadioProps = {
   class?: string;
   checked?: boolean;
+  checkedIcon?: JSXElement;
   color?: IconButtonProps["color"],
   defaultChecked?: boolean;
   disabled?: boolean;
@@ -38,6 +41,7 @@ export type RadioProps = {
   onChange?: (event: Event) => void;
   size?: IconButtonProps["size"];
   slotProps?: RadioSlotProps;
+  uncheckedIcon?: JSXElement;
   value?: string;
 } & Omit<ComponentProps<"input">, "type">;
 
@@ -45,8 +49,14 @@ const Radio = (
   props: RadioProps,
 ) => {
 
-  const [local, rest] = splitProps(props, [
+  const mergedProps = mergeProps({
+    checkedIcon: <RadioChecked />,
+    uncheckedIcon: <RadioUnchecked />,
+  }, props);
+
+  const [local, rest] = splitProps(mergedProps, [
     "checked",
+    "checkedIcon",
     "class",
     "color",
     "defaultChecked",
@@ -55,6 +65,7 @@ const Radio = (
     "onChange",
     "size",
     "slotProps",
+    "uncheckedIcon",
     "value",
     // Skip props
     "children",
@@ -113,9 +124,9 @@ const Radio = (
       disabled={local.disabled}
     >
       {isChecked() ? (
-        <RadioChecked />
+        local.checkedIcon
       ) : (
-        <RadioUnchecked />
+        local.uncheckedIcon
       )}
       <input
         name={(

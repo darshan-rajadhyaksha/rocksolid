@@ -52,6 +52,24 @@ describe("Radio component", () => {
     );
   });
 
+  /** checkedIcon & uncheckedIcon */
+  it("should display custom checked and unchecked icons", async () => {
+    const mockProps = {
+      checkedIcon: <span data-testId="custom-checked-icon"></span>,
+      uncheckedIcon: <span data-testId="custom-unchecked-icon"></span>
+    };
+    renderRadioComponent(mockProps);
+    const radioElement = screen.getByRole("radio");
+    expect(radioElement).toBeVisible();
+    const customUnchekcedIcon = screen.getByTestId("custom-unchecked-icon");
+    expect(customUnchekcedIcon).toBeVisible();
+    expect(screen.queryByTestId("custom-checked-icon")).toBeNull();
+    await userEvent.click(radioElement);
+    const customChekcedIcon = screen.getByTestId("custom-checked-icon");
+    expect(customChekcedIcon).toBeVisible();
+    expect(screen.queryByTestId("custom-unchecked-icon")).toBeNull();    
+  });
+
   /** class prop */
   it("should apply custom class to radio element", () => {
     const mockProps = {
